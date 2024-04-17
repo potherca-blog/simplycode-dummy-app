@@ -43,6 +43,9 @@
           /* /Commands */
           /* Routes */
           routes: {
+            "/" : function (params) {
+              editor.pageData.page = 'home'
+            }
             
           }
           /* /Routes */
@@ -72,9 +75,11 @@
     <nav>
       <div is="simply-component" rel="menu"></div>
     </nav>
-    <div class="home" data-simply-field="page" data-simply-content="template">
+    <div class="main" data-simply-field="page" data-simply-content="template">
     <!-- Page HTML templates -->
-    
+    <template data-simply-template="home">
+      <h1>This is an App</h1>
+    </template>
     <!-- /Page HTML templates -->
     </div>
     <script src="js/simply.everything.js"></script>
