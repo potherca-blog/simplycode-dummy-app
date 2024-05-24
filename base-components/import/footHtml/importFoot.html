@@ -1,0 +1,29 @@
+<script type="module">
+  import dc from 'https://cdn.jsdelivr.net/gh/potherca-blog/simplycode-dummy-component@v0.3.0/index.js'
+
+  document.body.insertAdjacentHTML('beforeend', dc.componentTemplates)
+  document.body.querySelector("[data-simply-field=page]").insertAdjacentHTML('beforeend', dc.pageTemplates);
+
+  // We need to make sure that both simplyApp _and_ dc[...] are loaded.
+  // Race conditions caused by network transport need to be mitigated...
+
+  /**
+   * @CHECKME: De we want routes? This is a new APP, do components even have routes?
+   */
+  function importActionsAndCommands(simplyApp, dc) {
+    Object.entries(dc.simplyApp.actions).forEach(([index,action]) => {
+      simplyApp.actions[index] = action
+    })
+
+    Object.entries(dc.simplyApp.commands).forEach(([index,command]) => {
+      simplyApp.commands[index] = command
+    })
+  }
+
+  window.addEventListener("simply-content-loaded", () => {
+    importActionsAndCommands(simplyApp, dc)
+  })
+
+  // @CHECKME: Should we fire at the window or at the document? Why?
+  editor.fireEvent('simply-import-fired', window)
+</script>
