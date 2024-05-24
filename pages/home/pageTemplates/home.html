@@ -1,1 +1,47 @@
 <h1>This is an App</h1>
+
+<iframe src="https://172.19.0.2/"></iframe>
+<script>
+  const url = 'https://172.19.0.2/'
+  fetch(url)
+    .then(response => response.ok ? response.text() : Promise.reject(response))
+    .then(html => {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(html, 'text/html')
+
+    const scripts = []
+    doc.querySelectorAll('script').forEach(script => {
+      let src = script.getAttribute('src')
+
+      if (src) {
+        // @TODO: Check URL against current document to see if already loaded
+        //        else load
+        if ( ! src.startsWith('http')) {
+          // Link is relative, make it absolute
+          src = new URL(src, url).href
+        }
+        scripts.push(src)
+      } else {
+        scripts.push(script)
+      }
+    })
+
+    console.log(`Found ${scripts.length} scripts`)
+    console.log(scripts)
+
+    scripts.forEach(script => {
+      let scriptElement
+      if (typeof script === 'string') {
+        console.log(script)
+        const scriptElement = document.createElement('script')
+        scriptElement.src = script
+      } else {
+        const scriptElement = document.createElement('script')
+        console.log(script.innerHTML)
+        scriptElement.innerHTML = script.innerHTML
+      }
+
+      document.body.appendChild(scriptElement)
+    })
+  })
+</script>

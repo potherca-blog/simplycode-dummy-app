@@ -1,3 +1,3 @@
 function (params) {
-  editor.pageData.page = 'home'
+  editor.pageData.page = 'hello'
 }
