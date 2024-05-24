@@ -10,18 +10,14 @@
   /**
    * @CHECKME: De we want routes? This is a new APP, do components even have routes?
    */
-  function importActionsAndCommands(simplyApp, dc) {
-    Object.entries(dc.simplyApp.actions).forEach(([index,action]) => {
-      simplyApp.actions[index] = action
-    })
-
-    Object.entries(dc.simplyApp.commands).forEach(([index,command]) => {
-      simplyApp.commands[index] = command
-    })
-  }
-
   window.addEventListener("simply-content-loaded", () => {
-    importActionsAndCommands(simplyApp, dc)
+      Object.entries(dc.simplyApp.actions).forEach(([index,action]) => {
+          simplyApp.actions[index] = action
+      })
+
+      Object.entries(dc.simplyApp.commands).forEach(([index,command]) => {
+          simplyApp.commands[index] = command
+      })
   })
 
   // @CHECKME: Should we fire at the window or at the document? Why?
