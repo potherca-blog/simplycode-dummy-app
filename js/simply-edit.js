@@ -704,6 +704,9 @@
 				if (list.getAttribute("data-simply-data")) {
 					useDataBinding = false; // this list uses a datasource, skip databinding
 				}
+				if (list.getAttribute("data-simply-transformer")) {
+					useDataBinding = false; // this list uses a transformer, skip databinding
+				}
 
 				if (dataParent && dataParent[dataName]) {
 					if (useDataBinding) {
@@ -4626,12 +4629,6 @@
 	  }
 	}());
 
-	editor.init({
-		endpoint : document.querySelector("[data-simply-endpoint]") ? document.querySelector("[data-simply-endpoint]").getAttribute("data-simply-endpoint") : null,
-		toolbars : defaultToolbars,
-		profile : 'live'
-	});
-
 	class SimplyComponent extends HTMLDivElement {
 		constructor() {
 			console.warn('simply-component is deprecated, use simply-render instead');
@@ -4680,4 +4677,17 @@
 	// Define the new element
 	customElements.define('simply-render', SimplyRender);
 
+	var initSimply = function() {
+		editor.init({
+			endpoint : document.querySelector("[data-simply-endpoint]") ? document.querySelector("[data-simply-endpoint]").getAttribute("data-simply-endpoint") : null,
+			toolbars : defaultToolbars,
+			profile : 'live'
+		});
+	}
+
+	if (scriptEl.hasAttribute("data-simply-initOnEvent")) {
+		document.addEventListener("simply-init", initSimply);
+	} else {
+		initSimply();
+	}
 }());
