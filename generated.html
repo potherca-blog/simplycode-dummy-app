@@ -46,7 +46,6 @@
             "/" : function (params) {
               editor.pageData.page = 'hello'
             }
-            
           }
           /* /Routes */
         });
@@ -83,20 +82,7 @@
     <!-- /Page HTML templates -->
     </div>
     <script src="js/simply.everything.js"></script>
-    <script>
-      window.waitForImport = {
-        init : () => true,
-        save : () => true,
-        load : function(callback) {
-          window.addEventListener("simply-import-fired", () => {
-            callback("{}");
-          })
-        },
-        connect: () => true,
-        disconnect: () => true
-      }
-    </script>
-    <script src="js/simply-edit.js" data-api-key="muze" data-simply-storage="waitForImport"></script>
+    <script src="js/simply-edit.js" data-api-key="muze" data-simply-initOnEvent></script>
     <script>
       /* Transformers */
       editor.transformers = {
@@ -136,14 +122,13 @@
           Object.entries(dc.simplyApp.actions).forEach(([index,action]) => {
               simplyApp.actions[index] = action
           })
-
+    
           Object.entries(dc.simplyApp.commands).forEach(([index,command]) => {
               simplyApp.commands[index] = command
           })
       })
     
-      // @CHECKME: Should we fire at the window or at the document? Why?
-      editor.fireEvent('simply-import-fired', window)
+      editor.fireEvent('simply-init', document)
     </script>
     
     <!-- /Foot HTML -->
