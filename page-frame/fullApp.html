@@ -78,20 +78,7 @@
     <!-- /Page HTML templates -->
     </div>
     <script src="js/simply.everything.js"></script>
-    <script>
-      window.waitForImport = {
-        init : () => true,
-        save : () => true,
-        load : function(callback) {
-          window.addEventListener("simply-import-fired", () => {
-            callback("{}");
-          })
-        },
-        connect: () => true,
-        disconnect: () => true
-      }
-    </script>
-    <script src="js/simply-edit.js" data-api-key="muze" data-simply-storage="waitForImport"></script>
+    <script src="js/simply-edit.js" data-api-key="muze" data-simply-initOnEvent></script>
     <script>
       /* Transformers */
       editor.transformers = {
